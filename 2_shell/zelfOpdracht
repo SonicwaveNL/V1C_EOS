@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#Create a password with the first 3 letter of the files in a given folder.
+
+count=0
+get_name=""
+get_pass=""
+get_number=$((1 + RANDOM % 10))
+
+echo "=== Creating a new password:"
+
+for FILE in $(find $1); do
+
+	get_name="${FILE##*/}"
+	get_cut="${get_name:0:3}"
+	get_pass="$get_pass$get_cut"
+	count=$((count+1))
+
+done
+echo "Generated: $get_pass"
+
+get_pass="$get_pass$get_number"
+get_pass=$(echo -n $get_pass | md5sum) 
+
+echo "Encrypted: $get_pass"
+
+echo "$get_pass" > password.txt
+
+

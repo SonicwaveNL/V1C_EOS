@@ -1,0 +1,22 @@
+#!/bin/bash
+
+echo "Counting file extentions of files in $1"
+echo
+
+count=0
+
+for FILE in "${@:2}"; do
+	count=$((count=0))
+	for ext in $(find $1); do
+
+		check="*.$FILE"
+
+		case $ext in
+			$check)
+				count=$((count+1))
+				;;
+		esac
+		
+	done
+	echo "$FILE: $count"
+done

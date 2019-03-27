@@ -1,0 +1,3 @@
+Welcome to my first shell script! Written by Justin van Ziel.
+
+Type a command to execute:

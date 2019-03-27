@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+#Create new directory
+mkdir -m777 ./test
+
+#Find images and move them in the new directory
+find $1 -type f \( -iname \*.jpg -o -iname \*.png \) -print -exec mv -t ./test {} +

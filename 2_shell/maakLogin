@@ -1,0 +1,41 @@
+#!/bin/bash
+
+textfile=$1
+echo "-- Password setup"
+read -p "username: `echo $'\n> '`" name
+
+if [ "$name" == "" ]
+then
+	name="whoami"
+fi
+
+while true
+do
+
+	read -p "- password: `echo $'\n> '`" -s new_pass
+	echo
+	read -p "- confirm: `echo $'\n> '`" -s check_pass
+	echo
+
+	check_length=${#new_pass}
+	if [ $check_length -gt 8  ] && [[ $new_pass =~ [A-Z] ]] && [[ $new_pass =~ [a-z] ]] && [[ $new_pass =~ [0-9] ]]; then
+
+		if [ "$new_pass" == "$check_pass" ]; then
+			echo > $1.txt
+			echo "-- Created password file with the name '$1' for '$name'"
+			name=$(echo -n $name | md5sum)
+			new_pass=$(echo -n $new_pass | md5sum) 
+			echo "$name" >> $1.txt
+			echo "$new_pass" >> $1.txt
+			break
+		else
+			echo "-- password didn't match confirm, try again"
+		fi
+
+	else
+		echo "-- password didn't meet requirements, try again"
+	fi
+
+
+done
+

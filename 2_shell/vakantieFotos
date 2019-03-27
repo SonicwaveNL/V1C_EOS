@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+#Create new directory
+mkdir -m777 -p $1/vakantie
+
+#Find images and move them in the new directory
+mv $(find $1 -print | grep vakantie) -t "$1/vakantie"
